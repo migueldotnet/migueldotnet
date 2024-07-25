@@ -2,29 +2,29 @@ name: .NET Build and Publish Workflow
 
 on:
   push:
-    branches: ['master', 'main']
+    branches: ["master", "main"]
   pull_request:
     branches:
-    - main
-    - master
+      - main
+      - master
 
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '6.0.x'
-    
-    - name: Restore
-      run: dotnet restore
-    
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "6.0.x"
 
-    - name: Publish
-      run: dotnet publish --output ./Publish --configuration Release --no-build
+      - name: Restore
+        run: dotnet restore ./BikeStore.sln
+
+      - name: Build
+        run: dotnet build ./BikeStore.sln --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish ./BikeStore.sln --configuration Release --no-build
